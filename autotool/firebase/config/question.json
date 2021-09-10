@@ -1,0 +1,38 @@
+{
+    "name":"Question",
+    "extends":"BaseModel",
+    "path":"question.dart",
+    "packages":[
+        "package:project/core/base/base_model.dart",
+        "package:project/core/models/firebase_models/choice.dart"
+    ],
+    "fields":[
+        {
+            "name":"id",
+            "type":"String",
+            "final":true,
+            "option":false,
+            "required":true,
+            "doConvert":false,
+            "doMap":false
+        },
+        {
+            "name": "choices",
+            "type": "List",
+            "listType": "Choice",
+            "listTypeParams": [
+                {
+                    "key": "id",
+                    "mapKey": "cid"
+                }
+            ],
+            "final": true,
+            "option": false,
+            "required": true,
+            "default": "\"abcd\"",
+            "key": "choice",
+            "doConvert": true,
+            "doMap": true
+        }
+    ]
+}

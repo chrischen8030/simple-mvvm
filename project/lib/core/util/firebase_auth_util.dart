@@ -1,11 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project/core/util/firebase_firestoroe_util.dart';
 
 class FirebaseAuthUtil {
   static FirebaseAuthUtil _instance = FirebaseAuthUtil._();
   factory FirebaseAuthUtil() {
     return _instance;
   }
-  FirebaseAuthUtil._();
+
+  FirebaseAuthUtil._(){
+    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
+    if (user == null) {
+      print('User is currently signed out!');
+    } else {
+      print('User is signed in!');
+      FirebaseFirestoreUtil().currentUser;
+      final events = await FirebaseFirestoreUtil().getUserEvents(uid: user.uid);
+      print("events:${events}");
+    }
+  });
+  }
 
   //regist by email
   Future<UserCredential> creatUerWithEmailAndPassword(
@@ -60,6 +73,4 @@ class FirebaseAuthUtil {
     }
     await user.sendEmailVerification();
   }
-
-  
 }

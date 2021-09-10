@@ -3,17 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart';
 import 'package:project/page/home/home.page.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fau;
 
 Future<void> main() async {
   await Firebase.initializeApp();
-  fau.FirebaseAuth.instance.authStateChanges().listen((fau.User? user) {
-    if (user == null) {
-      print('User is currently signed out!');
-    } else {
-      print('User is signed in!');
-    }
-  });
+
   Firestore store = firestore();
   CollectionReference ref = store.collection('test');
 
@@ -33,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Live アンケート',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

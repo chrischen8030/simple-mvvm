@@ -1,0 +1,40 @@
+{
+    "name":"Event",
+    "extends":"BaseModel",
+    "path":"event.dart",
+    "packages":[
+        "package:cloud_firestore/cloud_firestore.dart",
+        "package:project/core/base/base_model.dart"
+    ],
+    "fields":[
+        {
+            "name":"id",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":true,
+            "default":"\"abcd\"",
+            "key":"eid",
+            "doConvert":false, 
+            "doMap":false
+        },
+        {
+            "name":"id",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":true,
+            "default":"\"abcd\"",
+            "key":"eid",
+            "doConvert":false, 
+            "doMap":false
+        },
+        {
+            "name":"created",
+            "type":"DateTime",
+            "mapType":"Timestamp",
+            "keyCode":"= (map[\"created\"] as Timestamp).toDate();",
+            "toMapCode":"= Timestamp.fromDate(this.created ?? DateTime.now());"
+        }
+    ]
+}

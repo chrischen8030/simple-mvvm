@@ -1,0 +1,49 @@
+{
+    "name":"LAUser",
+    "extends":"BaseModel",
+    "path":"user.dart",
+    "packages":[
+        "package:project/core/base/base_model.dart",
+        "package:cloud_firestore/cloud_firestore.dart"
+    ],
+    "fields":[
+        {
+            "name":"uid",
+            "type":"String",
+            "final":true,
+            "option":false,
+            "required":true,
+            "doConvert":false,
+            "doMap":false
+        },
+        {
+            "name":"name",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":false,
+            "doConvert":true,
+            "doMap":true
+        },
+        {
+            "name":"email",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":false,
+            "doConvert":true,
+            "doMap":true
+        },        
+        {
+            "name":"updated",
+            "type":"DateTime",
+            "final":false,
+            "option":true,
+            "required":false,
+            "doConvert":true,
+            "doMap":true,
+            "keyCode":"= (map[\"updated\"] as Timestamp).toDate();",
+            "toMapCode":"= Timestamp.fromDate(this.updated ?? DateTime.now());"
+        }
+    ]
+}
