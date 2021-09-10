@@ -38,7 +38,7 @@ function buildFieldBody(fields) {
         if (field.type && field.name) {
             console.log(field);
             const final = field.final==true? 'final ' : '';
-            const type = field.listType==undefined ? `${field.type}`:`${field.type}<${field.listType}>`;
+            const type = getType(field);
             const option = field.option==true? `${type}? ` : `${type} `;
             let isListEnd = field.type === "List" ? `=[]`:``;
             fieldBody = fieldBody +
@@ -46,6 +46,11 @@ function buildFieldBody(fields) {
         }
     }
     return fieldBody;
+}
+
+function getType(field){
+    const type = field.type ===`Object` ? field.class : field.type;
+    return field.listType==undefined ? `${type}`:`${type}<${field.listType}>`;
 }
 
 function buildConstructorBody(fields, name) {
@@ -75,7 +80,7 @@ function buildInitWithMapMethodBody(fields){
                 continue;
             }
             const key = field.key || field.name;
-            const mapType = field.mapType || field.type;
+            const mapType = field.type === `Object`? 'Map' : field.mapType || field.type;
             const ifBefore  = `    if (map["${key}"] is ${mapType}) {\n`;
             if(field.type === "List"){
                 const datas     = `      final Object? ${field.name}Datas = map["${key}"];\n`;
@@ -91,13 +96,25 @@ function buildInitWithMapMethodBody(fields){
                 methodBody = methodBody + ifBefore + datas + forStart + toMap + forEnd + ifAfter;
             }else{
                 const fieldBody = `      this.${field.name} `;
-                const keyBody   = field.keyCode || `= map["${key}"] as ${field.type};`;
+                const keyBody   = field.keyCode || (field.type === `Object`?`= ${getType(field)}(${getNormalPamars(field)})..initWithMap(map["${key}"] as Map<String,Object?>);`:`= map["${key}"] as ${field.type};`);
                 const ifAfter   = `\n    }\n\n`;
                 methodBody = methodBody + ifBefore + fieldBody + keyBody + ifAfter;
             }
         }
     }
     return methodBody;
+}
+
+function getNormalPamars(field){
+    let params = "";
+    if(!field.subParams){
+        return params;
+    }
+    for(const param of field.subParams){
+        console.log(param);
+        params =  `${params}${param.key}: ${param.mapKey},`;
+    }
+    return params;
 }
 
 function buildToMapMethodBody(fields){
@@ -120,7 +137,7 @@ function buildToMapMethodBody(fields){
                 console.log(`=============creatMap:${creatMap}`)
                 methodBody = methodBody + creatMap + forStart + forBody + forEnd + addToMap;
             }else{
-                const toMapCode  = field.toMapCode || `= this.${field.name};`;
+                const toMapCode  = field.toMapCode || `= this.${field.name}${field.option===false?``:`!`}${field.type===`Object`?`.toMap()`:``};`;
                 const fieldBody  = `    map["${key}"] ${toMapCode}\n`;
                 methodBody = methodBody + fieldBody;
             }

@@ -1,0 +1,28 @@
+{
+    "name":"VoteLimit",
+    "extends":"BaseModel",
+    "path":"vote_limit.dart",
+    "packages":[
+        "package:project/core/base/base_model.dart"
+    ],
+    "fields":[
+        {
+            "name":"enable",
+            "type":"bool",
+            "final":false,
+            "option":true
+        },
+        {
+            "name":"num",
+            "type":"int",
+            "final":false,
+            "option":true
+        },
+        {
+            "name":"str",
+            "type":"String",
+            "final":false,
+            "option":true
+        }
+    ]
+}

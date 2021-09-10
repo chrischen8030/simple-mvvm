@@ -3,7 +3,8 @@
     "extends":"BaseModel",
     "path":"visitor_setting.dart",
     "packages":[
-        "package:project/core/base/base_model.dart"
+        "package:project/core/base/base_model.dart",
+        "package:project/core/models/firebase_models/vote_limit.dart"
     ],
     "fields":[
         {
@@ -40,7 +41,8 @@
         {
             "name":"iframeHeight",
             "type":"int",
-            "default":"0"
+            "default":"0",
+            "option":false
         },
         {
             "name":"iframeUrl",
@@ -52,6 +54,62 @@
         {
             "name":"inlineCss",
             "type":"String",
+            "final":false,
+            "option":true,
+            "required":false
+        },        
+        {
+            "name":"isAuthenticated",
+            "type":"bool",
+            "final":false,
+            "option":true,
+            "required":false
+        },        
+        {
+            "name":"logoDisable",
+            "type":"bool",
+            "final":false,
+            "option":true,
+            "required":false
+        },
+        {
+            "name":"nores",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":false
+        },
+        {
+            "name":"ready",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":false
+        },
+        {
+            "name":"showsAd",
+            "type":"bool",
+            "final":false,
+            "option":true,
+            "required":false
+        },
+        {
+            "name":"showsTranslation",
+            "type":"bool",
+            "final":false,
+            "option":true,
+            "required":false
+        },
+        {
+            "name":"wait",
+            "type":"String",
+            "final":false,
+            "option":true,
+            "required":false
+        },{
+            "name":"voteLimit",
+            "type":"Object",
+            "class":"VoteLimit",
             "final":false,
             "option":true,
             "required":false
