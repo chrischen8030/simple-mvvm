@@ -5,7 +5,7 @@ const exportModel = require('./lib/dart.model').exportModel;
 
 
 const root = './firebase/config';
-const modelRoot = './firebase/models';
+// const modelRoot = './firebase/models';
 const modelRoot = '../project/lib/core/models/firebase_models';
 const files = fs.readdirSync(root);
 console.log(files);

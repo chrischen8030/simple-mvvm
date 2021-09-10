@@ -27,7 +27,6 @@ class Question extends BaseModel
      List<Map> choicesList = [];
      for(final object in this.choices){
        choicesList.add(object.toMap());
-       print(object.toMap());
      }
      map["choice"]= choicesList;
      return map;

@@ -54,7 +54,7 @@ class ScreenSetting extends BaseModel
 
   @override
   Map<String, Object?> toMap() {
-    final map = Map<String, Object?>();
+     final map = Map<String, Object?>();
     map["active"] = this.active;
     map["showsAd"] = this.showsAd;
     map["deadline"] = this.deadline;
@@ -62,6 +62,6 @@ class ScreenSetting extends BaseModel
     map["nores"] = this.nores;
     map["allowsDialogMode"] = this.allowsDialogMode;
     map["sort"] = this.sort;
-    return map;
+     return map;
   }
 }
