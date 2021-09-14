@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project/core/models/firebase_models/question.dart';
+import 'package:project/core/models/firebase_models/screen_setting.dart';
+import 'package:project/core/models/firebase_models/visitor_setting.dart';
 import 'package:project/core/util/firebase_firestoroe_util.dart';
 
 
@@ -13,6 +15,8 @@ class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
   String? _eid;
   StreamSubscription? _currentSubscription;
   Question? currentQuestion;
+  ScreenSetting? screenSetting;
+  VisitorSetting? visitorSetting;
   
 
   CurrentEventProvider._();
@@ -25,6 +29,7 @@ class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
     if(_eid != eid){
       _eid = eid;
       _changeSnapshot();
+      notifyListeners();
     }
   }
 
@@ -34,20 +39,54 @@ class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
       _currentSubscription!.cancel();
     }
     _currentSubscription = collection.snapshots().listen((event) {
-      event.docs.forEach((element) {
-        switch(element.id){
+      event.docChanges.forEach((element) {
+        switch(element.doc.id){
           case "question":
-            final question = Question(id: element.data()["qid"]);
-            question.initWithMap(element.data());
-            question.toMap();
+            print("==============question1:${element.doc.id}================");
+            final question = Question(id: element.doc.data()!["qid"] ?? "");
+            question.initWithMap(element.doc.data()!);
+            this.currentQuestion = question;
+            print("========${question.status}");
+            notifyListeners();
             break;
           case "options":
+            print("==============options1:${element.doc.id}================");
+            final optionsData = element.doc.data();
+            final visitorSettingData = optionsData?.map((key, value){
+              if(value is Map){
+                final map = value;
+                if(map.keys.contains("vote")){
+                  return MapEntry(key, map["vote"]);
+                }
+                if(map.keys.contains("screen")){
+                  return MapEntry(key, "no vote");
+                }
+              }
+              return MapEntry(key, value);
+            });
+            final screenSettingData = optionsData?.map((key, value){
+              if(value is Map){
+                final map = value;
+                if(map.keys.contains("screen")){
+                  return MapEntry(key, map["screen"]);
+                }
+                if(map.keys.contains("vote")){
+                  return MapEntry(key, "no screen");
+                }
+              }
+              return MapEntry(key, value);
+            });
+            this.screenSetting = ScreenSetting();
+            this.screenSetting!.initWithMap(screenSettingData??Map());
+            this.visitorSetting = VisitorSetting();
+            this.visitorSetting!.initWithMap(visitorSettingData??Map());
+            notifyListeners();
             break;
           case "onlineUsers":
+            print("==============onlineUsers1:${element.doc.id}================");
             break;
         }
       });
-      notifyListeners();
     });
   }
 

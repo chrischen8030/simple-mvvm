@@ -119,7 +119,7 @@ function getNormalPamars(field){
 
 function buildToMapMethodBody(fields){
     let methodBody = "";
-    const createMap            = `     final map = Map<String, Object?>();\n`;
+    const createMap            = `    final map = Map<String, Object?>();\n`;
     methodBody = methodBody + createMap;
     for (const field of fields) {
         if (field.type && field.name) {
@@ -129,21 +129,21 @@ function buildToMapMethodBody(fields){
             }
             const key = field.key || field.name;
             if(field.type === "List"){
-                const creatMap  = `     List<Map> ${field.name}List = [];\n`;
-                const forStart  = `     for(final object in this.${field.name}){\n`
-                const forBody   = `       ${field.name}List.add(object.toMap());\n` 
-                const forEnd    = `     }\n`;
-                const addToMap  = `     map["${key}"]= ${field.name}List;\n`;
+                const creatMap  = `    List<Map> ${field.name}List = [];\n`;
+                const forStart  = `    for(final object in this.${field.name}){\n`
+                const forBody   = `      ${field.name}List.add(object.toMap());\n` 
+                const forEnd    = `    }\n`;
+                const addToMap  = `    map["${key}"]= ${field.name}List;\n`;
                 console.log(`=============creatMap:${creatMap}`)
                 methodBody = methodBody + creatMap + forStart + forBody + forEnd + addToMap;
             }else{
                 const toMapCode  = field.toMapCode || `= this.${field.name}${field.option===false?``:`!`}${field.type===`Object`?`.toMap()`:``};`;
-                const fieldBody  = `    map["${key}"] ${toMapCode}\n`;
+                const fieldBody  =`    map["${key}"] ${toMapCode}\n`;
                 methodBody = methodBody + fieldBody;
             }
 
         }
     }
-    const endMap                 =`     return map;\n`;
+    const endMap                 =`    return map;\n`;
     return methodBody+endMap;
 }

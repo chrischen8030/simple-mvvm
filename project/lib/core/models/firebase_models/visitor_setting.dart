@@ -103,7 +103,7 @@ class VisitorSetting extends BaseModel
 
   @override
   Map<String, Object?> toMap() {
-     final map = Map<String, Object?>();
+    final map = Map<String, Object?>();
     map["active"] = this.active!;
     map["addsBadButton"] = this.addsBadButton;
     map["cssFile"] = this.cssFile;
@@ -119,6 +119,6 @@ class VisitorSetting extends BaseModel
     map["showsTranslation"] = this.showsTranslation!;
     map["wait"] = this.wait!;
     map["voteLimit"] = this.voteLimit!.toMap();
-     return map;
+    return map;
   }
 }

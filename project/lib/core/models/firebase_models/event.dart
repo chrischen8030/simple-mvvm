@@ -81,7 +81,7 @@ class Event extends BaseModel
 
   @override
   Map<String, Object?> toMap() {
-     final map = Map<String, Object?>();
+    final map = Map<String, Object?>();
     map["liveDate"] = this.liveDate;
     map["liveTime"] = this.liveTime;
     map["isArchive"] = this.isArchive;
@@ -93,6 +93,6 @@ class Event extends BaseModel
     map["uid"] = this.uid;
     map["passcode"] = this.passcode;
     map["hash"] = this.hash;
-     return map;
+    return map;
   }
 }

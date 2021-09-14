@@ -17,6 +17,16 @@
             "doMap":false
         },
         {
+            "name":"status",
+            "type":"String",
+            "final":false,
+            "option":false,
+            "required":false,
+            "doConvert":true,
+            "doMap":true,
+            "default":"\"ready\""
+        },
+        {
             "name": "choices",
             "type": "List",
             "listType": "Choice",

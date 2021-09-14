@@ -33,10 +33,10 @@ class LAUser extends BaseModel
 
   @override
   Map<String, Object?> toMap() {
-     final map = Map<String, Object?>();
+    final map = Map<String, Object?>();
     map["name"] = this.name!;
     map["email"] = this.email!;
     map["updated"] = Timestamp.fromDate(this.updated ?? DateTime.now());
-     return map;
+    return map;
   }
 }

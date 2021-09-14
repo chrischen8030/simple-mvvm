@@ -30,10 +30,10 @@ class VoteLimit extends BaseModel
 
   @override
   Map<String, Object?> toMap() {
-     final map = Map<String, Object?>();
+    final map = Map<String, Object?>();
     map["enable"] = this.enable!;
     map["num"] = this.num!;
     map["str"] = this.str!;
-     return map;
+    return map;
   }
 }

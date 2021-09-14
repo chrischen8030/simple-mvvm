@@ -32,10 +32,10 @@ class Choice extends BaseModel
 
   @override
   Map<String, Object?> toMap() {
-     final map = Map<String, Object?>();
+    final map = Map<String, Object?>();
     map["priority"] = this.priority;
     map["value"] = this.value;
     map["uid"] = this.uid;
-     return map;
+    return map;
   }
 }

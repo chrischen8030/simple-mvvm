@@ -8,7 +8,7 @@ import 'package:project/core/util/firebase_firestoroe_util.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    CurrentEventProvider().eid = "pTK7T0bLQqwDUVbhEaZv";
+    CurrentEventProvider().eid = "JqE97PbndNInysqdHjgL";
     return Scaffold(
         body: FutureBuilder(
             future: FirebaseAuthUtil().signInWithEmailAndPassword(
