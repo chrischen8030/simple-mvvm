@@ -29,7 +29,6 @@ class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
     if(_eid != eid){
       _eid = eid;
       _changeSnapshot();
-      notifyListeners();
     }
   }
 

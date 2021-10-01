@@ -1,24 +1,33 @@
 import 'package:project/core/base/base_view_model.dart';
-import 'package:project/core/models/firebase_models/question.dart';
+import 'package:project/core/provider/current_event_provider.dart';
 
 class VisitorPageModel extends BaseViewModel {
 
-  Question? _question;
+  final current = CurrentEventProvider();
 
-  set question(Question? question){
-    _question = question;
-    notifyListeners();
+  VisitorPageModel(){
+    current.addListener(() {
+      print("=============recall VisitorPageModel");
+      notifyListeners();
+    });
   }
 
-  Question? get question => _question;
-
-  @override
-  void initWithMap(Map<String, Object?> map) {
+  String? get state=>this.current.currentQuestion!.status;
+  String? get title=>this.current.currentQuestion!.title;
+  String? get stateTitle  {
+    return this.current.visitorSetting!.deadline;
+  }
+  String? get type  {
+    return this.current.currentQuestion!.type;
   }
 
-  @override
-  Map<String, Object?> toMap() {
-    throw UnimplementedError();
+  List<String> get selectValues {
+    final List<String> values = [];
+    final choices = current.currentQuestion!.choices;
+    for(final choice in choices){
+      values.add(choice.value);
+    }
+    return values;
   }
-  
+
 }

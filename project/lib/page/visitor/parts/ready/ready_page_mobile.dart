@@ -7,7 +7,7 @@ class _ReadyPageMobile extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.red,
+        color: Colors.blue,
       ),
     );
   }

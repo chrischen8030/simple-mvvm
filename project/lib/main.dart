@@ -3,9 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart';
 import 'package:project/core/provider/current_event_provider.dart';
-import 'package:project/page/home/home.page.dart';
 import 'package:project/page/visitor/visitor_page.dart';
-import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await Firebase.initializeApp();
@@ -29,18 +27,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentEventProvider = CurrentEventProvider();
-    currentEventProvider.eid = 'MHdr7X7iPwaRBwy42Dza';
+    currentEventProvider.eid = 't1pxRHiHUHnucUAhh2Bh';
     return MaterialApp(
       title: 'Live アンケート',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => currentEventProvider),
-        ],
-        child: VisitorPage(),
-      ),
+      // home: VisitorPage(),
+      home: VisitorPage(),
     );
   }
 }
