@@ -2,12 +2,12 @@ import 'package:project/core/base/base_view_model.dart';
 import 'package:project/core/models/firebase_models/choice.dart';
 import 'package:project/core/provider/current_event_provider.dart';
 
-class VisitorPageModel extends BaseViewModel {
+class ScreenPageModel extends BaseViewModel {
   final current = CurrentEventProvider();
 
-  VisitorPageModel() {
+  ScreenPageModel() {
     current.addListener(() {
-      print("=============recall VisitorPageModel");
+      print("=============recall ScreenPageModel");
       notifyListeners();
     });
   }

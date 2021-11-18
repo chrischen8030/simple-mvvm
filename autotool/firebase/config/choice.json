@@ -38,6 +38,26 @@
             "option":false,
             "required":false,
             "default":"\"\""
+        },
+        {
+            "name":"voteTotal",
+            "type":"int",
+            "final":false,
+            "option":false,
+            "required":false,
+            "default":"0",
+            "doConvert":false, 
+            "doMap":false
+        },
+        {
+            "name":"totalPercent",
+            "type":"int",
+            "final":false,
+            "option":false,
+            "required":false,
+            "default":"0",
+            "doConvert":false, 
+            "doMap":false
         }
     ]
 }

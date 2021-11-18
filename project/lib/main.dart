@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart';
 import 'package:project/core/provider/current_event_provider.dart';
+import 'package:project/page/screen/screen_page.dart';
 import 'package:project/page/visitor/visitor_page.dart';
 
 Future<void> main() async {
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: VisitorPage(),
       home: VisitorPage(),
+      // home: ScreenPage(),
     );
   }
 }

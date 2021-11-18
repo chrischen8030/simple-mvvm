@@ -5,12 +5,16 @@ class Choice extends BaseModel
   int priority;
   String value;
   String uid;
+  int voteTotal;
+  int totalPercent;
 
   Choice({
     required this.id,
     this.priority = 0,
     this.value = "",
     this.uid = "",
+    this.voteTotal = 0,
+    this.totalPercent = 0,
   });
 
   @override

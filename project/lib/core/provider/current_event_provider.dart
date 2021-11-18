@@ -14,11 +14,11 @@ import 'package:project/core/util/firebase_firestoroe_util.dart';
 class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
   String? _eid;
   StreamSubscription? _currentSubscription;
+  StreamSubscription? _currentQuestionSubscription;
   Question? currentQuestion;
   ScreenSetting? screenSetting;
   VisitorSetting? visitorSetting;
   
-
   CurrentEventProvider._();
   static CurrentEventProvider _instance = CurrentEventProvider._();
   factory CurrentEventProvider(){
@@ -44,7 +44,12 @@ class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
             print("==============question1:${element.doc.id}================");
             final question = Question(id: element.doc.data()!["qid"] ?? "");
             question.initWithMap(element.doc.data()!);
-            this.currentQuestion = question;
+            if(this.currentQuestion == null || this.currentQuestion!.id != question.id){
+              this.currentQuestion = question;
+              this.startCurrentListener();
+            }else{
+              this.currentQuestion = question;
+            }
             print("========${question.status}");
             notifyListeners();
             break;
@@ -93,5 +98,34 @@ class CurrentEventProvider with ChangeNotifier,DiagnosticableTreeMixin {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
+  }
+
+  void startCurrentListener(){
+    _currentQuestionSubscription?.cancel();
+    final collection = FirebaseFirestoreUtil().db.collection("/enquetes/${_eid}/results/${this.currentQuestion!.id}/voteResult");
+    _currentQuestionSubscription = collection.snapshots().listen((event) {
+      final docs = event.docs;
+      print('event.docs:${event.docs.length}');
+
+      int total = 0;
+      this.currentQuestion!.choices.forEach((element) {
+          element.voteTotal = 0;
+      });
+      docs.forEach((element) { 
+        final idStr = element.id;
+        final choiceIdStr = idStr.split('_').first;
+        final choice = this.currentQuestion!.choices.firstWhere((element) => element.id == choiceIdStr);
+        choice.voteTotal +=  element.data()['total'] as int;
+        total +=  element.data()['total'] as int;
+      });
+      print('question.choices:${this.currentQuestion!.choices.length}');
+      this.currentQuestion!.choices.forEach((element) {
+        final percent = ((element.voteTotal/total)*100).round();
+        element.totalPercent = percent;
+        print('${element.value}:${element.totalPercent}');
+      });
+      notifyListeners();
+    });
+
   }
 }

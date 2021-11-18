@@ -1,4 +1,4 @@
-part of '../../visitor_page.dart';
+part of '../../screen_page.dart';
 
 class _ReadyPageMobile extends StatelessWidget{
   final VisitorPageModel model;
